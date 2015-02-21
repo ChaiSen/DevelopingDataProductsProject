@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Child's height prediction</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Child's height prediction">
+  <meta name="author" content="Chai Sen">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/github.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Child's height prediction</h1>
+    <h2>Using linear regression as the prediction model</h2>
+    <p>Chai Sen<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Height is known to be somewhat heriditary, hence knowing a parent&#39;s height there might be some way to predict the child&#39;s height. The app created attempt to predict the height of the user&#39;s child when the user key in his/her own height, in metres.</p>
+
+<h2>Data and Model used</h2>
+
+<p>The data used in predicting the model is from the library(UsingR) in which the data father.son is used. There are a total of 1078 measurements of a father&#39;s height and his son&#39;s height.</p>
+
+<p>The model used in prediction is a simple linear regression on the 1078 sets of measurements. The function predict will be used to predict the height of the user&#39;s child when the user keyed in his own height.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Some codes used in the app</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(UsingR)
+data(father.son)
+# Display the dataset, notice they are in inches
+head(father.son, n = 1)
+</code></pre>
+
+<pre><code>##    fheight  sheight
+## 1 65.04851 59.77827
+</code></pre>
+
+<pre><code class="r"># convert all observations to metres, 1 inch = 0.0254 metres
+father.son$fheight &lt;- father.son$fheight * 0.0254
+father.son$sheight &lt;- father.son$sheight * 0.0254
+head(father.son, n = 1)
+</code></pre>
+
+<pre><code>##    fheight  sheight
+## 1 1.652232 1.518368
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Some codes used in the app (continue)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">#fitting the data into a linear model
+fit &lt;- lm(sheight ~ fheight, data = father.son)
+#coefficients
+fit$coefficients
+</code></pre>
+
+<pre><code>## (Intercept)     fheight 
+##   0.8607198   0.5140930
+</code></pre>
+
+<pre><code class="r">#max height of father
+maxFather &lt;- max(father.son$fheight)
+maxFather
+</code></pre>
+
+<pre><code>## [1] 1.916022
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Additional Notes</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Since the Model is built on the 1078 observations in which the minimum height observed is 1.49m and the maximum height is 1.92m. The application would be more accurate in predicting the user&#39;s child if the user&#39;s height is between these 1.49m and 1.92m. Also since the observation is based on father and son, perhaps it would be better to also consider how the mother&#39;s height would affect the child, also if the child is a daughter, the height predicted might not be as accurate.</p>
+
+<p>##References on height genetics</p>
+
+<p><a href="http://www.scientificamerican.com/article/how-much-of-human-height/">http://www.scientificamerican.com/article/how-much-of-human-height/</a>
+<a href="http://genetics.thetech.org/original_news/news60">http://genetics.thetech.org/original_news/news60</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Some codes used in the app'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Some codes used in the app (continue)'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Additional Notes'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
